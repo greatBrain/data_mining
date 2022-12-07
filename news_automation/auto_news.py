@@ -11,15 +11,16 @@ web_url = "https://www.thesun.co.uk/sport/football"
 path = "/home/itachi/Documents/workspapces/automation/news_automation/chromedriver"
 
 
-#Activatng the headless mode (Chrome will not start automatically)
-
+#Activatng the headless mode (the browser will not start automatically, Non-UI mode):
+opts = Options()
+opts.headless = True #Will run in the background
 
 
 #Service object who executes the webdriver
 service = Service(executable_path=path)
 
 #Webdriver 
-driver = webdriver.Chrome(service=service)
+driver = webdriver.Chrome(service=service, options=opts)
 
 #Open an instance of Chrome
 driver.get(web_url)
@@ -46,7 +47,7 @@ data_dict = {'titles': titles, 'subtitles': sub_titles, 'links':links}
 df_headlines = pd.DataFrame(data_dict)
 
 #Export to a CSV file (There are ,amy options like JSON excel txt, etc.)
-df_headlines.to_csv('data_headlines.csv')
+df_headlines.to_csv('data_headlines_headless.csv')
 
 #Closing the driver
 driver.quit()
