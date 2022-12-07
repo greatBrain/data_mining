@@ -1,15 +1,21 @@
 from webbrowser import Chrome
 from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
 import pandas as pd
 
 #Website URL
 web_url = "https://www.thesun.co.uk/sport/football"
 
-#Path where is the chromedriver
+#Path where is the chromedriver file
 path = "/home/itachi/Documents/workspapces/automation/news_automation/chromedriver"
 
-#Service who executes the webdriver
+
+#Activatng the headless mode (Chrome will not start automatically)
+
+
+
+#Service object who executes the webdriver
 service = Service(executable_path=path)
 
 #Webdriver 
@@ -19,7 +25,7 @@ driver = webdriver.Chrome(service=service)
 driver.get(web_url)
 
 
-#Get website continers
+#Get website HTML continers
 container = driver.find_elements(by="xpath", value='//div[@class="teaser__copy-container"]')
 
 titles = []
