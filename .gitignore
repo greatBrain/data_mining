@@ -1,0 +1,5 @@
+#Ignoring virtual env
+/venv
+
+#Ignoring env variables
+.env
