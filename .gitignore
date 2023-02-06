@@ -1,5 +1,5 @@
 #Ignoring virtual env
 /venv
-
+/virtualenv
 #Ignoring env variables
 .env
