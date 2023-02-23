@@ -1,21 +1,35 @@
 import os
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
+from webdriver_manager.chrome import ChromeDriverManager as manager
 
 web_url = "https://www.thesun.co.uk/sport/football/"
 
-#The chromedriver was added to a sym link: 
-chrome_driver_path = "/usr/bin/chromedriver"
+#instead of passing manually the path of the web browser driver, we use the ChromeDriverManager to 
+#install the correct version tha match with the current browser version.
+driver = webdriver.Chrome(service=Service(manager().install()))
 
-service = Service(executable_path=chrome_driver_path)
-driver = webdriver.Chrome(service=service)
 driver.get(web_url)
 
 #Find elements using Xpath:
-el_container = driver.find_elements(by="xpath", value='//div[@class="teaser__copy-container"]')
+elements_container = driver.find_elements(by="xpath", value='//div[@class="teaser__copy-container"]')
+
+
+#Lists of elements to be added to a dictionary
+titles = []
+subtitles = []
+links = []
+
 
 #Iterate over el_container to print every element found using 'find_element':
-for el in el_container:
-    subtitle = el.find_element(by="xpath", value='./a/h2').text
+for data in elements_container:
+    title = data.find_element(by="xpath", value="./a/h2").text
+    subtitle = data.find_element(by="xpath", value="./a/p").text
+    link = data.find_element(by="xpath", value="./a").get_attribute("href")
 
-print(subtitle)
+    titles.append(title)
+    subtitles.append(subtitle)
+    links.append(link)
+
+data = {"titles":titles, "subtitles":subtitles, "links":links}
+print(data)
