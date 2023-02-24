@@ -1,7 +1,7 @@
-import os
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager as manager
+import pandas as pd
 
 web_url = "https://www.thesun.co.uk/sport/football/"
 
@@ -23,13 +23,18 @@ links = []
 
 #Iterate over el_container to print every element found using 'find_element':
 for data in elements_container:
-    title = data.find_element(by="xpath", value="./a/h2").text
+    #title = data.find_element(by="xpath", value="./a/h2").text
     subtitle = data.find_element(by="xpath", value="./a/p").text
     link = data.find_element(by="xpath", value="./a").get_attribute("href")
 
-    titles.append(title)
+    #titles.append(title)
     subtitles.append(subtitle)
     links.append(link)
 
-data = {"titles":titles, "subtitles":subtitles, "links":links}
-print(data)
+data = {"subtitles":subtitles, "links":links}
+
+#Write the data to a dataframe:
+dataframe = pd.DataFrame(data)
+
+#Export the dataframe to a file (may be to: JSON, CSV, to the clipboard, etc.):
+dataframe.to_csv('data.csv')
