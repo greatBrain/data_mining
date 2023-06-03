@@ -13,7 +13,7 @@ class Driver:
       def __init__(self):
           #For headless mode:   	 
           options = Options()
-          options.headless = True 
+          options.add_argument('--headless=new')
           self.driver = webdriver.Chrome(service=Service(manager().install()), options=options)
           self.site_url = "https://www.thesun.co.uk/sport/football/"
 
@@ -70,6 +70,11 @@ class Scraper():
           except Exception as e:
               print(f"Error, the operation could not be completed: ", e, "try again.\n")
               self.web_driver.quit()   
+
+      def auto_search(self):
+          #Search for the search box, click on it an then send the text for what u are looking for
+          pass
+      
 
 
       def run(self):
